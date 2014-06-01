@@ -74,27 +74,21 @@
 
 #pragma mark - Private Methods
 
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Quote *quote = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = quote.famousQuote;
+    cell.textLabel.text = quote.personName;
 }
 
-- (void)insertNewObject:(id)sender
-{
+- (void)insertNewObject:(id)sender {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    Quote *newQuote = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    newQuote.famousQuote = @"This should be a famous quote";
-    
+    [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     NSError *error = nil;
-    
-    if (![context save:&error])
-    {
+    if (![context save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
+        abort(); }
 }
 
 #pragma mark - Properties
